@@ -1,0 +1,25 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand d-flex flex-column align-items-center" [routerLink]="['/home']">
+    <img src="https://yts.am/assets/images/website/logo-YTS.svg" class="img-fluid">
+    <small>Clone v1.0</small>
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" [routerLink]="['/home']">Home</a>
+      </li>
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" [routerLink]="['/search']">Browse Movies</a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0" (ngSubmit)="searchMovie(search.value)">
+      <input class="form-control mr-sm-2 content-radius" type="search" placeholder="Quick search" aria-label="Search" #search>
+      <button class="btn btn-search my-2 my-sm-0 search" type="submit"><i class="fas fa-search text-success"></i></button>
+    </form>
+  </div>
+</nav>

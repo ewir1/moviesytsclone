@@ -1,0 +1,115 @@
+<div *ngIf="movieyts">
+  <div [ngStyle]="{ 'background-image': 'url(' + bgImage + ')'}" class="bg-image">
+    <div class="bg-content">
+      <div class="container">
+        <div class="row py-5">
+          <div class="col-md-4 d-flex flex-column align-items-center">
+            <img [src]="movieyts.medium_cover_image" [alt]="movieyts.title" class="img-fluid img-cover mb-3">
+            <a [routerLink]="['/home']" class="btn btn-success content-radius">Volver</a>
+          </div>
+          <div class="col-md-8">
+            <h2 class="text-white">{{movieyts.title}}</h2>
+            <p class="text-white">{{ movieyts.year }}</p>
+            <p class="text-white">{{ movieyts.runtime}} min.</p>
+            <div class="d-flex">
+              <p *ngFor="let gen of movieyts.genres" class="text-white mr-2">{{ gen }}</p>
+            </div>
+            <div class="d-flex align-items-center">
+              <i class="fas fa-star text-success"></i>
+              <p class="text-rating">{{ movieyts.rating }} / 10</p>
+            </div>
+            <span class="badge badge-quality mt-3">{{ movieyts.mpa_rating }}</span>
+
+            <div class="mt-4">
+              <h5 class="text-white">Aviable in:
+                <span class="badge badge-quality mr-2" *ngFor="let quality of movieyts.torrents">
+                  <a [href]="quality.url">{{ quality.quality }}.{{ quality.type }}</a>
+                </span>
+              </h5>
+            </div>
+
+            <p class="text-white"><i class="far fa-heart"></i> {{ movieyts.like_count }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container my-5" *ngIf="movieyts">
+  <div class="row">
+    <div class="col-md-4">
+      <img class="img-fluid" [src]="movieyts.medium_screenshot_image1" [alt]="movieyts.title">
+    </div>
+    <div class="col-md-4">
+      <img class="img-fluid" [src]="movieyts.medium_screenshot_image2" [alt]="movieyts.title">
+    </div>
+    <div class="col-md-4">
+      <img class="img-fluid" [src]="movieyts.medium_screenshot_image3" [alt]="movieyts.title">
+    </div>
+  </div>
+</div>
+
+<div class="container" *ngIf="movieyts">
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="text-white">Synopsis</h3>
+      <p class="text-quality">
+        {{ movieyts.description_full }}
+      </p>
+    </div>
+    <div class="col-md-6">
+      <h3 class="text-white">Cast</h3>
+      <div class="d-flex flex-row">
+        <div class="column-cast" *ngFor="let c of movieyts.cast">
+          <div class="mx-2 d-flex flex-column align-items-center justify-content-center">
+            <img class="img-icon rounded-circle mb-2" [src]="c | noimage" [alt]="c.name">
+            <span class="span-cast text-success text-center">{{ c.name }}</span>
+            <span class="span-cast text-white text-center">as {{ c.character_name }}</span>
+          </div>
+        </div>
+        <div *ngIf="validCast === true">
+          <p class="lead text-quality">Not Available</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container mt-5">
+    <h4 class="text-white">Tech Specs</h4>
+    <table class="table table-dark">
+      <thead>
+        <tr>
+          <th scope="col">Quality</th>
+          <th scope="col">Size</th>
+          <th scope="col">Type</th>
+          <th scope="col">P/S</th>
+          <th scope="col">Download</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let torrent of movieyts.torrents">
+          <th scope="row">
+            <p *ngIf="torrent.quality === '3D'" class="text-danger"><i class="fab fa-youtube"></i> {{ torrent.quality
+              }}</p>
+            <p *ngIf="torrent.quality === '1080p'" class="text-white"><i class="fab fa-youtube"></i> {{ torrent.quality
+              }}</p>
+            <p *ngIf="torrent.quality === '720p'" class="text-info"><i class="fab fa-youtube"></i> {{ torrent.quality
+              }}</p>
+          </th>
+          <td>{{ torrent.size }}</td>
+          <td>
+            <p *ngIf="torrent.type === 'bluray'" class="text-info">
+              <img src="assets/img/bluray-big-logo.svg" class="img-min"><small> {{ torrent.type | uppercase }}</small>
+            </p>
+            <p *ngIf="torrent.type === 'web'" class="text-success">
+              <img src="assets/img/grid-world.svg" class="img-min"><small> {{ torrent.type | uppercase }}</small>
+            </p>
+          </td>
+          <td>{{ torrent.peers }}/{{ torrent.seeds }}</td>
+          <td><a [href]="torrent.url" class="ml-4"><i class="fas fa-cloud-download-alt text-success"></i></a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

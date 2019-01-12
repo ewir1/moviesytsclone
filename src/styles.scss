@@ -1,1 +1,108 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i');
+
+
+// Colors
+$black: #000000;
+$white: #ffffff;
+$coverHover: rgba(0, 0, 0, 0.700);
+$quality: #adb5bd;
+
+body {
+  font-family: 'Roboto',
+    sans-serif;
+  background: $black;
+}
+
+.bg-dark {
+  background: $black !important;
+}
+
+.text-quality {
+  color: $quality;
+}
+
+.badge-quality {
+  background: transparent;
+  border: 1px solid $quality;
+  color: $white;
+  font-weight: 300;
+
+  a {
+    text-decoration: none;
+    font-size: 11px;
+    color: $white;
+  }
+}
+
+.content-radius {
+  border-radius: 20px;
+  border: none;
+}
+
+
+.link-cover {
+  position: relative;
+  display: block;
+
+  .content-cover {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: all .3s ease-in-out;
+    opacity: 0;
+
+    p {
+      color: $white;
+    }
+
+    h4.title-cover {
+      width: 80%;
+      text-align: center;
+      color: $white;
+      font-weight: 400;
+    }
+
+    i {
+      color: rgb(192, 167, 24);
+    }
+  }
+
+  &:hover {
+    .content-cover {
+      opacity: 1;
+      background: $coverHover;
+    }
+  }
+}
+
+
+.text-rating {
+  transform: translate(10%,10%);
+  margin: 0;
+  color: $white;
+}
+
+.span-cast {
+  font-size: 11px;
+}
+
+.column-cast {
+  width: 100px;
+  height: auto;
+}
+
+.img-icon {
+  width: 60px;
+  height: auto;
+}
+
+.img-min {
+  width: 20px;
+  height: auto;
+}

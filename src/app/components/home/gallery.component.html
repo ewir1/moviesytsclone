@@ -1,0 +1,25 @@
+<h3 class="text-white"><i class="fas fa-film"></i> {{ titleMovie }}</h3>
+<div class="text-center text-white vh-100" *ngIf="loading === true">
+  <h2><i class="fas fa-sync-alt fa-spin"></i> Loading...</h2>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-3 mb-4" *ngFor="let movie of movies; let i = index">
+      <a class="link-cover" [routerLink]="['/movie', movie.id]" routerLinkActive="router-link-active">
+        <figure>
+          <img class="img-fluid" [src]="movie.medium_cover_image" [alt]="movie.title">
+        </figure>
+        <figcaption class="content-cover">
+          <i class="fas fa-star"></i>
+          <p>{{ movie.rating }} / 10</p>
+          <h4 class="mb-0 mr-3 title-cover">{{ movie.title }}</h4>
+          <p class="m-0">{{ movie.year }}</p>
+        </figcaption>
+      </a>
+      <div class="d-flex flex-wrap">
+        <span class="badge badge-quality mr-2 mb-2" *ngFor="let quality of movie.torrents">{{ quality.quality }}.{{
+          quality.type }}</span>
+      </div>
+    </div>
+  </div>
+</div>
