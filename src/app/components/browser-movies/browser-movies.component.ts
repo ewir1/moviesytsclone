@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MoviesService } from 'src/app/services/movies.service';
 
 @Component({
@@ -10,16 +10,20 @@ import { MoviesService } from 'src/app/services/movies.service';
 export class BrowserMoviesComponent implements OnInit {
   search: string;
 
+  // searchAdv: string;
+
+  searchMovieAdv: string;
+
   loading = false;
 
   movies: any[] = [];
 
-  moviesAdv: Object = {
+  moviesAdv = {
     term: '',
     quality: '',
     genre: '',
     rating: '',
-    orderBy: '',
+    orderby: '',
   };
 
   terms: string;
@@ -67,9 +71,12 @@ export class BrowserMoviesComponent implements OnInit {
     'downloads',
   ];
 
-  constructor(public movieService: MoviesService, public route: ActivatedRoute) {
-
-    console.log(this.moviesAdv);
+  constructor(
+    public movieService: MoviesService,
+    public route: ActivatedRoute,
+    public router: Router,
+  ) {
+    // console.log(this.moviesAdv);
 
     this.route.params.subscribe((params) => {
       if (params.text) {
@@ -79,9 +86,18 @@ export class BrowserMoviesComponent implements OnInit {
         this.searchMovie();
       }
     });
+
+    this.route.params.subscribe((params) => {
+      if (params.term) {
+        this.search = params.term;
+        this.searchMovie();
+      }
+    });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getSearchMovieAdv();
+  }
 
   searchMovie() {
     setTimeout(() => {
@@ -94,6 +110,27 @@ export class BrowserMoviesComponent implements OnInit {
         console.log(data);
       });
     }, 2000);
+
+    this.loading = true;
+  }
+
+  getSearchMovieAdv() {
+    setTimeout(() => {
+      this.loading = false;
+
+      this.movieService
+        .getSearchAdv(
+          this.moviesAdv.term,
+          this.moviesAdv.quality,
+          this.moviesAdv.genre,
+          this.moviesAdv.rating,
+          this.moviesAdv.orderby,
+        )
+        .subscribe((data: any) => data);
+    }, 3000);
+
+    console.log(this.moviesAdv);
+    
 
     this.loading = true;
   }

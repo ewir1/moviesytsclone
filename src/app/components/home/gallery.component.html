@@ -1,6 +1,9 @@
 <h3 class="text-white"><i class="fas fa-film"></i> {{ titleMovie }}</h3>
-<div class="text-center text-white vh-100" *ngIf="loading === true">
-  <h2><i class="fas fa-sync-alt fa-spin"></i> Loading...</h2>
+<div class="vh-100" *ngIf="loading === true">
+  <div class="spinner">
+    <div class="dot1"></div>
+    <div class="dot2"></div>
+  </div>
 </div>
 <div class="container">
   <div class="row">
@@ -17,8 +20,14 @@
         </figcaption>
       </a>
       <div class="d-flex flex-wrap">
-        <span class="badge badge-quality mr-2 mb-2" *ngFor="let quality of movie.torrents">{{ quality.quality }}.{{
-          quality.type }}</span>
+        <span class="badge badge-quality mr-2 mb-2" *ngFor="let quality of movie.torrents">
+          <div *ngIf="quality.type === 'bluray'">
+            <img src="assets/img/bluray-big-logo.svg" class="img-min"> {{ quality.quality }}
+          </div>
+          <div *ngIf="quality.type === 'web'">
+            <img src="assets/img/grid-world.svg" class="img-min"> {{ quality.quality }}
+          </div>
+        </span>
       </div>
     </div>
   </div>

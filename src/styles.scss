@@ -7,6 +7,8 @@ $black: #000000;
 $white: #ffffff;
 $coverHover: rgba(0, 0, 0, 0.700);
 $quality: #adb5bd;
+$lemon: #6aca45;
+$green: #28a745;
 
 body {
   font-family: 'Roboto',
@@ -105,4 +107,17 @@ body {
 .img-min {
   width: 20px;
   height: auto;
+}
+
+.text-lemon {
+  color: $lemon;
+}
+
+.form-control.form-control-sm {
+  background-color: black;
+  border: 1px solid $green;
+}
+
+.form-control:focus {
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0);
 }

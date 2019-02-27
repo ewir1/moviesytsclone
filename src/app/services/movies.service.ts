@@ -47,20 +47,27 @@ export class MoviesService {
       map((res) => {
         this.moviesSearch = res.json().data.movies;
         // return res.json().data;
-        console.log(this.moviesSearch);
+        // console.log(this.moviesSearch);
       }),
     );
   }
 
-  getSearchAdv(term: string, quality: string, genre: string, rating: string, year: boolean) {
-    const url = `${
-      this.url
-    }query_term=${term}&quality=${quality}&genre=${genre}&minimum_rating=${rating}&order_by=${year}`;
-    return this.http.get(url).pipe(
-      map((res) => {
-        this.movieSearchAdv = res.json().data.movies.title;
-        console.log(this.movieSearchAdv);
-      }),
-    );
+  getSearchAdv(term: string, quality: string, genre: string, rating: string, orderby: string) {
+
+    if (term === undefined || quality === undefined || genre === undefined || rating === undefined || orderby === undefined) {
+      
+      const urlMovies = `${this.url}list_movies.json?limit=12`;
+      return this.http.get(urlMovies).pipe(map((res: any) => res.json()));
+
+    } else {
+      const url = `${this.url}list_movies.json?query_term=${term}&quality=${quality}&genre=${genre}&minimum_rating=${rating}&order_by=${orderby}`;
+
+      return this.http.get(url).pipe(
+        map((res) => {
+          this.movieSearchAdv = res.json().data.movies;
+          console.log(this.movieSearchAdv);
+        }),
+      );
+    }
   }
 }

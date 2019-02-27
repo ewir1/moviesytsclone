@@ -9,7 +9,9 @@ const routes: Routes = [
   { path: 'search', component: BrowserMoviesComponent },
   { path: 'search/:text', component: BrowserMoviesComponent },
   { path: 'movie/:id', component: MovieComponent },
-  { path: '**', pathMatch: 'full', redirectTo: 'home'}
+  { path: 'movie/:id/:pag', component: MovieComponent },
+  { path: 'movie/:id/:pag/:search', component: MovieComponent },
+  { path: '**', pathMatch: 'full', redirectTo: 'home' }
 ];
 
 @NgModule({

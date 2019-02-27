@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit {
 
     this.moviesService.getListMovies().subscribe(movies => {
       this.moviesList = movies.data.movies;
-      console.log(this.moviesList);
+      // console.log(this.moviesList);
       this.loading = false;
     });
 
@@ -30,6 +30,7 @@ export class HomeComponent implements OnInit {
 
     this.moviesService.getList3dMovies().subscribe(movies3d => {
       this.movies3dList = movies3d.data.movies;
+      // console.log(this.movies3dList);
     });
 
   }

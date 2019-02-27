@@ -1,3 +1,9 @@
+<div class="vh-100" *ngIf="loading === true">
+  <div class="spinner">
+    <div class="dot1"></div>
+    <div class="dot2"></div>
+  </div>
+</div>
 <div *ngIf="movieyts">
   <div [ngStyle]="{ 'background-image': 'url(' + bgImage + ')'}" class="bg-image">
     <div class="bg-content">
@@ -5,7 +11,7 @@
         <div class="row py-5">
           <div class="col-md-4 d-flex flex-column align-items-center">
             <img [src]="movieyts.medium_cover_image" [alt]="movieyts.title" class="img-fluid img-cover mb-3">
-            <a [routerLink]="['/home']" class="btn btn-success content-radius">Volver</a>
+            <button [routerLink]="['/'+regresarA, search]" class="btn btn-success content-radius">Volver</button>
           </div>
           <div class="col-md-8">
             <h2 class="text-white">{{movieyts.title}}</h2>
@@ -23,7 +29,12 @@
             <div class="mt-4">
               <h5 class="text-white">Aviable in:
                 <span class="badge badge-quality mr-2" *ngFor="let quality of movieyts.torrents">
-                  <a [href]="quality.url">{{ quality.quality }}.{{ quality.type }}</a>
+                  <div *ngIf="quality.type === 'bluray'">
+                    <img src="assets/img/bluray-big-logo.svg" class="img-min"> {{ quality.quality }}
+                  </div>
+                  <div *ngIf="quality.type === 'web'">
+                    <img src="assets/img/grid-world.svg" class="img-min"> {{ quality.quality }}
+                  </div>
                 </span>
               </h5>
             </div>

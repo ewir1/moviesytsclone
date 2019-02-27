@@ -1,54 +1,70 @@
 <div class="container my-5">
   <div class="row">
-    <div class="col-md-12">
-      <div class="form-group text-white"><label for="">Search:</label>
-        <input [(ngModel)]="search" name="search" (keyup.enter)="searchMovie()" type="text" class="form-control"
-          placeholder="Busqueda de contenido...">
-
-        <!-- <form class="row" (ngSubmit)="searchMovie(movieForm)" #movieForm="ngForm" novalidate="">
-          <div class="form-group col-md-3">
-            <label class="text-white mt-5">Quality:</label>
-            <select class="form-control" [(ngModel)]="moviesAdv.quality" name="quality">
-              <option value="">All</option>
-              <option *ngFor="let quality of qualitys" [value]="quality">{{ quality }}</option>
-            </select>
+    <div class="col-md-8 offset-2">
+      <div class="form-group text-white"><label for="">Search Movie:</label>
+        <form class="row" (ngSubmit)="getSearchMovieAdv()" #movieForm="ngForm" novalidate="">
+          <div class="col-12">
+            <div class="row">
+              <div class="form-group col-md-8">
+                <input [(ngModel)]="moviesAdv.term" name="term" type="text" class="form-control form-control-sm"
+                  placeholder="Search content...">
+              </div>
+              <div class="form-group col-md-2">
+                <button class="btn btn-search my-2 my-sm-0" type="submit"><i
+                    class="fas fa-search text-success"></i></button>
+              </div>
+            </div>
           </div>
-          <div class="form-group col-md-3">
-            <label class="text-white mt-5">Genre:</label>
-            <select class="form-control" [(ngModel)]="moviesAdv.genre" name="genre">
-              <option value="">All</option>
-              <option *ngFor="let genre of genres" [value]="genre">{{ genre }}</option>
-            </select>
+          <div class="col-12">
+            <div class="row">
+              <div class="form-group col-md-2">
+                <label class="text-white mt-4">Quality:</label>
+                <select class="form-control form-control-sm" [(ngModel)]="moviesAdv.quality" name="quality">
+                  <option value="">All</option>
+                  <option *ngFor="let quality of qualitys" [value]="quality">{{ quality }}</option>
+                </select>
+              </div>
+              <div class="form-group col-md-2">
+                <label class="text-white mt-4">Genre:</label>
+                <select class="form-control form-control-sm" [(ngModel)]="moviesAdv.genre" name="genre">
+                  <option value="">All</option>
+                  <option *ngFor="let genre of genres" [value]="genre">{{ genre }}</option>
+                </select>
+              </div>
+              <div class="form-group col-md-2">
+                <label class="text-white mt-4">Rating:</label>
+                <select class="form-control form-control-sm" [(ngModel)]="moviesAdv.rating" name="rating">
+                  <option value="">All</option>
+                  <option *ngFor="let rating of ratings" [value]="rating">{{ rating }}</option>
+                </select>
+              </div>
+              <div class="form-group col-md-2">
+                <label class="text-white mt-4">Order By:</label>
+                <select class="form-control form-control-sm" [(ngModel)]="moviesAdv.orderby" name="orderby">
+                  <option value="">All</option>
+                  <option *ngFor="let orderBy of orderBys" [value]="orderBy">{{ orderBy }}</option>
+                </select>
+              </div>
+            </div>
           </div>
-          <div class="form-group col-md-3">
-            <label class="text-white mt-5">Rating:</label>
-            <select class="form-control" [(ngModel)]="moviesAdv.rating" name="rating">
-              <option value="">All</option>
-              <option *ngFor="let rating of ratings" [value]="rating">{{ rating }}</option>
-            </select>
-          </div>
-          <div class="form-group col-md-3">
-            <label class="text-white mt-5">Rating:</label>
-            <select class="form-control" [(ngModel)]="moviesAdv.orderBy" name="orderBy">
-              <option value="">All</option>
-              <option *ngFor="let orderBy of orderBys" [value]="orderBy">{{ orderBy }}</option>
-            </select>
-          </div>
-            
-            <button class="btn btn-search my-2 my-sm-0" type="submit"><i class="fas fa-search text-success"></i></button>
-          
-        </form> -->
+        </form>
       </div>
 
     </div>
   </div>
 
-  <div class="text-center text-white vh-100" *ngIf="loading === true">
-    <h2><i class="fas fa-sync-alt fa-spin"></i> Search content...</h2>
+  <div class="vh-100" *ngIf="loading === true">
+    <div class="spinner">
+      <div class="dot1"></div>
+      <div class="dot2"></div>
+    </div>
   </div>
 
   <div class="row animated fadeIn" *ngIf="!loading">
-    <div class="col-md-3 mb-4" *ngFor="let movie of movieService.moviesSearch">
+    <div class="col-md-3 mb-4" *ngFor="let movie of movieService.movieSearchAdv">
+      <div *ngIf="movie.length === ''">
+        <h1 class="text-white">No se encontro pelicula</h1>
+      </div>
       <a class="link-cover" [routerLink]="['/movie', movie.id]" routerLinkActive="router-link-active">
         <figure>
           <img class="img-fluid" [src]="movie.medium_cover_image" [alt]="movie.title">
@@ -61,8 +77,14 @@
         </figcaption>
       </a>
       <div class="d-flex flex-wrap">
-        <span class="badge badge-quality mr-2 mb-2" *ngFor="let quality of movie.torrents">{{ quality.quality }}.{{
-          quality.type }}</span>
+        <span class="badge badge-quality mr-2 mb-2" *ngFor="let quality of movie.torrents">
+          <div *ngIf="quality.type === 'bluray'">
+            <img src="assets/img/bluray-big-logo.svg" class="img-min"> {{ quality.quality }}
+          </div>
+          <div *ngIf="quality.type === 'web'">
+            <img src="assets/img/grid-world.svg" class="img-min"> {{ quality.quality }}
+          </div>
+        </span>
       </div>
     </div>
   </div>

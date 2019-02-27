@@ -22,22 +22,39 @@ export class MovieComponent implements OnInit {
 
   validImage: any;
 
+  loading: boolean;
+
+  search = '';
+
+  regresarA = '';
+
   constructor(private movieService: MoviesService, public route: ActivatedRoute) {
     this.route.params.subscribe((parametros) => {
       this.getImageBg(parametros.id);
 
-      this.movieService.getMovie(parametros.id).subscribe((movie) => {
-        this.movieyts = movie.data.movie;
-        console.log(this.movieyts);
+      this.regresarA = parametros['pag'];
 
-        this.cast = movie.data.movie.cast;
+      if (parametros['search']) {
+        this.search = parametros['search'];
+      }
 
-        if (this.cast === undefined) {
-          this.validCast = true;
-        } else {
-          this.validCast = false;
-        }
+      this.movieService.getMovie(parametros['id']).subscribe((movie) => {
+        setTimeout(() => {
+          this.loading = false;
 
+          this.movieyts = movie.data.movie;
+          console.log(this.movieyts);
+
+          this.cast = movie.data.movie.cast;
+
+          if (this.cast === undefined) {
+            this.validCast = true;
+          } else {
+            this.validCast = false;
+          }
+        }, 3000);
+
+        this.loading = true;
       });
     });
   }
