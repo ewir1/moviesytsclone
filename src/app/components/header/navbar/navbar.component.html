@@ -17,7 +17,7 @@
         <a class="nav-link" [routerLink]="['/search']">Browse Movies</a>
       </li>
     </ul>
-    <form class="form-inline my-2 my-lg-0" (ngSubmit)="searchMovie(search.value)">
+    <form class="form-inline my-2 my-lg-0 form-flex" (ngSubmit)="searchMovie(search.value)">
       <input class="form-control mr-sm-2 content-radius" type="search" placeholder="Quick search" aria-label="Search" #search>
       <button class="btn btn-search my-2 my-sm-0 search" type="submit"><i class="fas fa-search text-success"></i></button>
     </form>

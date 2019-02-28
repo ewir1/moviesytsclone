@@ -85,7 +85,7 @@ body {
 
 
 .text-rating {
-  transform: translate(10%,10%);
+  transform: translate(10%, 10%);
   margin: 0;
   color: $white;
 }
@@ -109,6 +109,11 @@ body {
   height: auto;
 }
 
+.img-front {
+  width: 100% !important;
+  height: auto;
+}
+
 .text-lemon {
   color: $lemon;
 }
@@ -120,4 +125,26 @@ body {
 
 .form-control:focus {
   box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0);
+}
+
+@media(max-width: 414px) {
+
+  .navbar-nav.mr-auto {
+    text-align: center !important;
+  }
+
+  .form-flex {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: flex-end !important;
+
+    input.content-radius {
+      width: 80%;
+    }
+  }
+
+}
+
+.navbar-dark .navbar-toggler {
+  border-color: transparent !important;
 }

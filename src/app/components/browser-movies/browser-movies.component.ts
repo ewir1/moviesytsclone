@@ -106,9 +106,7 @@ export class BrowserMoviesComponent implements OnInit {
         return;
       }
 
-      this.movieService.getSearch(this.search).subscribe((data) => {
-        console.log(data);
-      });
+      this.movieService.getSearch(this.search).subscribe(data => data);
     }, 2000);
 
     this.loading = true;
@@ -128,9 +126,6 @@ export class BrowserMoviesComponent implements OnInit {
         )
         .subscribe((data: any) => data);
     }, 3000);
-
-    console.log(this.moviesAdv);
-    
 
     this.loading = true;
   }

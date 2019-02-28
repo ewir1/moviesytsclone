@@ -65,7 +65,6 @@ export class MoviesService {
       return this.http.get(url).pipe(
         map((res) => {
           this.movieSearchAdv = res.json().data.movies;
-          console.log(this.movieSearchAdv);
         }),
       );
     }
